@@ -38,6 +38,11 @@
     --ring: 222.2 84% 4.9%;
  
     --radius: 0.5rem;
+
+    --primary-color: #84A98C;
+    --secondary-color: #52796F;
+    --text-color: #CAD2C5;
+    --background-color: #2F3E46;
   }
  
   .dark {
