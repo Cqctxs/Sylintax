@@ -4,7 +4,7 @@
  
 @font-face {
   font-family: "ShinGoPro";
-  src: url("./fonts/AOTFShinGoProBold.woff"), url("./fonts/AOTFShinGoProHeavy.woff"), url("./fonts/AOTFShinGoProMedium.woff");
+  src: url("./fonts/AOTFShinGoProBold.woff");
 }
  
 @layer base {

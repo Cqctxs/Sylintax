@@ -10,7 +10,7 @@ module.exports = {
   prefix: "",
   theme: {
     fontFamily: {
-      poppins: ["ShinGoPro", "sans-serif"],
+      ShinGoPro: ["ShinGoPro", "sans-serif"],
     },
     container: {
       center: true,

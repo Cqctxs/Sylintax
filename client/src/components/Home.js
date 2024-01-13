@@ -1,11 +1,12 @@
 import React from 'react'
+import asl from '../images/asl.png'
 
 function Home() {
   return (
-    <div>
-      <h1 style={{ fontFamily: 'AOTFShinGoProBold', src: 'url(src/fonts/AOTFShinGoProBold.woff)' }}>
-        Silentscript
-      </h1>
+    <div className='flex justify-center'>
+      <img src={asl} alt='asl' className='scale-50'/>
+      <h1 className='font-ShinGoPro text-white text-xl'>Silyntax</h1>
+      
     </div>
   );
 }
