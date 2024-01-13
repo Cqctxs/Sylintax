@@ -19,7 +19,7 @@ const ROLES = {
 
 function App() {
   return (
-    <div className="bg-neutral-900 min-h-screen">
+    <div className="bg-background-color min-h-screen">
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Home />} />
