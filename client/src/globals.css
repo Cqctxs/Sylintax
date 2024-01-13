@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
  
+@font-face {
+  font-family: "ShinGoPro";
+  src: url("/client/src/fonts/AOTFShinGoProBold.woff"), url("/client/src/fonts/AOTFShinGoProHeavy.woff"), url("/client/src/fonts/AOTFShinGoProMedium.woff");
+}
+ 
 @layer base {
   :root {
     --background: 0 0% 100%;
