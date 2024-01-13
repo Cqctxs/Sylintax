@@ -5,7 +5,7 @@ import useInput from "../hooks/useInput";
 import useToggle from "../hooks/useToggle";
 
 import axios from "../api/axios";
-const LOGIN_URL = "/auth";
+const LOGIN_URL = "/login";
 
 const Login = () => {
   const { setAuth } = useAuth();
