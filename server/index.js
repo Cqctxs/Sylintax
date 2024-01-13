@@ -16,15 +16,18 @@ app.enable("trust proxy");
 app.disable("x-powered-by");
 connectDB();
 
-app.use("/test", require("./routes/test"));
+app.use("/register", require("./routes/register"));
+app.use("/login", require("./routes/login"));
+app.use("/refresh", require("./routes/refresh"));
+app.use("/logut", require("./routes/logout"));
 
 app.use("/", function (req, res) {
   res.json({ error: "endpoint not found" });
 });
 
 mongoose.connection.once("open", () => {
-console.log("Connected to MongoDB");
-app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`);
-});
+  console.log("Connected to MongoDB");
+  app.listen(PORT, () => {
+    console.log(`Listening on port ${PORT}`);
+  });
 });
