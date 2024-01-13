@@ -3,7 +3,7 @@
 function App() {
   return (
     <div className="bg-neutral-900 min-h-screen">
-      <h1 className="text-3xl">Hello World</h1>
+      <h1 className="text-3xl">Hello Worldaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</h1>
     </div>
   );
 }
