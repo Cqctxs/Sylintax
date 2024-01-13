@@ -11,6 +11,7 @@ module.exports = {
   theme: {
     fontFamily: {
       ShinGoPro: ["ShinGoPro", "sans-serif"],
+      Poppins: ["Poppins", "sans-serif"],
     },
     container: {
       center: true,
