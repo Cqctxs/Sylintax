@@ -1,20 +1,23 @@
 require("dotenv").config();
 const express = require("express");
-const fs = require("fs");
-const path = require("path");
+const http = require("http");
 const cors = require("cors");
+const corsOptions = require("./config/corsOptions");
+const verifyJWT = require("./middleware/verifyJWT");
+const cookieParser = require("cookie-parser");
+const credentials = require("./middleware/credentials");
 const mongoose = require("mongoose");
 const connectDB = require("./config/connectMongo");
 
 const app = express();
 const PORT = 8080;
 
-app.use(cors());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json({ strict: true }));
-app.enable("trust proxy");
-app.disable("x-powered-by");
 connectDB();
+app.use(credentials);
+app.use(cors(corsOptions));
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(cookieParser());
 
 app.use("/register", require("./routes/register"));
 app.use("/login", require("./routes/login"));
