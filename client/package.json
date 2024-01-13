@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@radix-ui/react-navigation-menu": "^1.1.4",
+    "@radix-ui/react-slot": "^1.0.2",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -18,8 +19,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "npm start",
+    "build": "npm build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
