@@ -18,7 +18,10 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    refreshToken: String
+    refreshToken: String,
+    completed: {
+        type: [Number]
+    }
 });
 
 module.exports = mongoose.model('User', userSchema);

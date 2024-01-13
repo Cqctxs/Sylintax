@@ -37,8 +37,8 @@ const Login = () => {
       );
       console.log(JSON.stringify(response?.data));
       const accessToken = response?.data?.accessToken;
-      const rating = response.data.rating;
-      setAuth({ user, rating, accessToken });
+      const completed = response.data.completed;
+      setAuth({ user, completed, accessToken });
       resetUser();
       setPwd("");
       navigate(from, { replace: true });
