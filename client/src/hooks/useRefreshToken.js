@@ -10,7 +10,7 @@ const useRefreshToken = () => {
         });
         setAuth({
                 user: response.data.user,
-                rating: response.data.rating,
+                completed: response.data.completed,
                 accessToken: response.data.accessToken,
             }
         );

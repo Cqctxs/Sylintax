@@ -12,6 +12,7 @@ const handleLogin = async (req, res) => {
     if (match) {
         const roles = Object.values(foundUser.roles);
         const id = foundUser._id;
+        const completed = foundUser.completed;
         // create JWTs
         const accessToken = jwt.sign(
             {
@@ -35,7 +36,7 @@ const handleLogin = async (req, res) => {
         console.log(result);
 
         res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000 });
-        res.json({ id, accessToken });
+        res.json({ id, completed, accessToken });
     } else {
         res.sendStatus(401);
     }

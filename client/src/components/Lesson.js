@@ -5,7 +5,7 @@ function Lesson() {
   const { auth } = useAuth();
   return (
     <div className="text-text-color">
-      {auth?.user} {auth.completed}
+      {auth?.user} {JSON.stringify(auth.completed)}
     </div>
   )
 }
