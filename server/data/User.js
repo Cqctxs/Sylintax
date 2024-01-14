@@ -20,7 +20,7 @@ const userSchema = new Schema({
     },
     refreshToken: String,
     completed: {
-        type: [Number]
+        type: [String]
     }
 });
 

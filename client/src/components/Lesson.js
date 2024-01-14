@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import { Sparkles, Flame, MoveLeft, MoveRight } from "lucide-react";
 import { Button } from "./ui/button";
 
-function Lesson({number}) {
+function Lesson() {
   const REQUEST_URL = "/api/lesson";
   const [end, setEnd] = useState(false);
   const id = useParams().id;
@@ -16,7 +16,7 @@ function Lesson({number}) {
   const [errMsg, setErrMsg] = useState("");
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(2);
   const [current, setCurrent] = useState({});
   const [letter, setLetter] = useState("");
   const [correct, setCorrect] = useState(false);
@@ -45,10 +45,12 @@ function Lesson({number}) {
         },
       })
       .then((response) => {
-        if (lesson[index]?.letter === response.data) setCorrect(true);
+        if (lesson[index]?.letter[0] === response.data[0]) setCorrect((prevCorrect) => !prevCorrect);
+        else setCorrect(false);
+        console.log(latest)
       })
       .catch((error) => console.error("Error uploading file", error));
-  }, [webcamRef]);
+  }, [webcamRef, index]);
 
   const retake = () => {
     setImgSrc(null);
@@ -74,7 +76,11 @@ function Lesson({number}) {
   }
 
   useEffect(() => {
-    
+    console.log(index);
+  }, [index]);
+
+  useEffect(() => {
+    console.log(correct);
   }, [correct]);
 
   useEffect(() => {
@@ -99,10 +105,10 @@ function Lesson({number}) {
   }, []);
 
   const updateUser = async () => {
-    console.log(JSON.stringify({completed: [...auth?.completed, 10]}));
+    console.log(JSON.stringify({completed: [...auth?.completed, id]}));
     try {
-      const response = await axios.put(`api/user/${id}`,
-      JSON.stringify({completed: [...auth?.completed, 10]}),
+      const response = await axios.put(`api/user/${auth?.user}`,
+      JSON.stringify({completed: [...auth?.completed, id]}),
       {
         headers: { "Content-Type": "application/json" },
         withCredentials: true
@@ -114,7 +120,7 @@ function Lesson({number}) {
         completed: newCompleted
       });
     } catch (err) {
-
+      console.log(err);
     }
   }
 
