@@ -50,7 +50,9 @@ function Lesson() {
           <h1 className="text-4xl font-ShinGoPro ">This is the letter "{lesson[index]?.letter}"
           </h1>
           <div className="w-full h-full flex justify-center items-center">
+            {/* photocam */}
             <img src={require(`../images/${lesson[index]?.letter}.png`)} alt={"letter " + lesson[index]?.letter} />
+            
           </div>
         </div>
       }
