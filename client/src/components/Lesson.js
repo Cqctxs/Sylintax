@@ -4,7 +4,7 @@ import generate from "../api/cohere";
 import axios from "../api/axios";
 import Webcam from "react-webcam";
 import { useParams } from "react-router-dom";
-import { Sparkles, Flame, MoveLeft, MoveRight } from "lucide-react";
+import { Sparkles, Flame, Trophy, MoveLeft, MoveRight } from "lucide-react";
 import { Button } from "./ui/button";
 
 function Lesson() {
@@ -268,10 +268,10 @@ function Lesson() {
           <div className="ml-10 mt-10">
             <h3 className="text-xl font-ShinGoPro">
               <Flame className="w-5 h-5 inline-block mr-2 -translate-y-[2px]" />
-              Challenge!
+              Great work,
             </h3>
             <h1 className="text-4xl font-ShinGoPro ">
-              Sign the letter "{lesson[index]?.letter}"
+              You unlocked a new lesson!
             </h1>
           </div>
         </div>
