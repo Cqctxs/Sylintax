@@ -63,9 +63,9 @@ function Lesson({number}) {
     setIndex(index - 1);
   };
 
-  const endLesson = () => {
-    updateUser();
+  const endLesson = async () => {
     setEnd(true);
+    await updateUser();
   }
 
   useEffect(() => {
@@ -90,17 +90,20 @@ function Lesson({number}) {
   }, []);
 
   const updateUser = async () => {
+    console.log(JSON.stringify({completed: [...auth?.completed, 10]}));
     try {
-      const response = await axios.put(`${REQUEST_URL}/${id}`,
-      JSON.stringify({completed: [...auth?.completed, number]}),
+      const response = await axios.put(`api/user/${id}`,
+      JSON.stringify({completed: [...auth?.completed, 10]}),
       {
         headers: { "Content-Type": "application/json" },
-        withCredentials: true,
+        withCredentials: true
       });
-      const user = auth?.username;
+      console.log(JSON.stringify(response.data));
       const newCompleted = response.completed;
-      const access = auth?.accessToken
-      setAuth({user, newCompleted, access});
+      setAuth({
+        ...auth,
+        completed: newCompleted
+      });
     } catch (err) {
 
     }
