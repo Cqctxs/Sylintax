@@ -17,8 +17,9 @@ function Lessons() {
   return (
     <div className='w-full h-screen flex justify-center'>
         <LessonCard title={"ABC Lesson"} description={"this is a test for the lesson, this is such a cool lesson where you learn so much"} id={"65a34ba1f122554807584d58"} status={getStatus("65a34ba1f122554807584d58")}/>
-        <LessonCard title={"ABC Lesson"} description={"this is a test for the lesson, this is such a cool lesson where you learn so much"} id={"65a3b675030b7ab1c40a8736"} status={getStatus("65a3b675030b7ab1c40a8736", "65a34ba1f122554807584d58")}/>
-        <LessonCard title={"ABC Lesson"} description={"this is a test for the lesson, this is such a cool lesson where you learn so much"} id={"65a3b696030b7ab1c40a8738"} status={getStatus("65a3b696030b7ab1c40a8738", "65a3b675030b7ab1c40a8736")}/>
+        <LessonCard title={"DEF Lesson"} description={"this is a test for the lesson, this is such a cool lesson where you learn so much"} id={"65a3fe5a1f32a506592baf47"} status={getStatus("65a3fe5a1f32a506592baf47", "65a34ba1f122554807584d58")}/>
+        <LessonCard title={"ABCDEFG Mix"} description={"this is a test for the lesson, this is such a cool lesson where you learn so much"} id={"65a3b675030b7ab1c40a8736"} status={getStatus("65a3b675030b7ab1c40a8736", "65a3fe5a1f32a506592baf47")}/>
+        <LessonCard title={"QWXYZ Lesson"} description={"this is a test for the lesson, this is such a cool lesson where you learn so much"} id={"65a3b696030b7ab1c40a8738"} status={getStatus("65a3b696030b7ab1c40a8738", "65a3b675030b7ab1c40a8736")}/>
     </div>
     
   )
