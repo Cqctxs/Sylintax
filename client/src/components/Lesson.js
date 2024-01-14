@@ -49,8 +49,10 @@ function Lesson() {
           "Content-Type": "multipart/form-data",
         },
       })
-      if (String.fromCharCode(lesson[index]?.letter[0]) === String.fromCharCode(response.data[0])) setCorrect(true);
-      else setCorrect(false);
+      console.log(lesson[index]?.letter);
+      console.log(response.data);
+      console.log(lesson[index].letter == response.data);
+      setCorrect(lesson[index].letter == response.data);
     } catch (error) {
       console.error("Error uploading file", error)
     }
