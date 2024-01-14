@@ -8,7 +8,7 @@ from PIL import Image
 
 PORT = 5000
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app, supports_credentials=True)  # Enable CORS for all routes
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/verify', methods=['POST'])

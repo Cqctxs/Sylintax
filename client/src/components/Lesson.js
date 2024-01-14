@@ -26,9 +26,14 @@ function Lesson() {
   const [imgSrc, setImgSrc] = useState(null);
   const [latest, setLatest] = useState(0);
 
-  const capture = useCallback(() => {
+  const generateResponse = async (letter) => {
+    const response = await generate(letter);
+    return response;
+  };
+
+  const capture = useCallback(async () => {
     const imageSrc = webcamRef.current.getScreenshot();
-    
+
     setImgSrc(imageSrc);
 
     let img_flask = imageSrc.substring(23);
@@ -37,19 +42,21 @@ function Lesson() {
 
     formData.append('file', img_flask);
 
-    // Make a POST request to the Flask server
-    axios
-      .post("http://localhost:5000/verify", formData, {
+    try {
+      // Make a POST request to the Flask server
+      const response = await axios.post("http://localhost:5000/verify", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
-      .then((response) => {
-        if (lesson[index]?.letter[0] === response.data[0]) setCorrect((prevCorrect) => !prevCorrect);
-        else setCorrect(false);
-        console.log(latest)
-      })
-      .catch((error) => console.error("Error uploading file", error));
+      console.log(lesson[index]?.letter);
+      console.log(response.data);
+      console.log(lesson[index].letter == response.data);
+      setCorrect(lesson[index].letter == response.data);
+    } catch (error) {
+      console.error("Error uploading file", error)
+    }
+
   }, [webcamRef, index]);
 
   const retake = () => {
@@ -57,15 +64,16 @@ function Lesson() {
   };
 
   const incrementIndex = () => {
-    setIndex((prevIndex) => prevIndex+1);
-    if (index > latest) setCorrect(false);
+    setIndex((prevIndex) => prevIndex + 1);
+    if (index >= latest - 1) setCorrect(false);
+    else setCorrect(true);
     retake();
     setLatest((prevLatest) => Math.max(prevLatest, index))
   };
 
   const decrementIndex = () => {
-    setIndex((prevIndex) => prevIndex-1);
-    if (index > latest) setCorrect(false);
+    setIndex((prevIndex) => prevIndex - 1);
+    setCorrect(true);
     retake();
     setLatest((prevLatest) => Math.max(prevLatest, index))
   };
@@ -105,14 +113,14 @@ function Lesson() {
   }, []);
 
   const updateUser = async () => {
-    console.log(JSON.stringify({completed: [...auth?.completed, id]}));
+    console.log(JSON.stringify({ completed: [...auth?.completed, id] }));
     try {
       const response = await axios.put(`api/user/${auth?.user}`,
-      JSON.stringify({completed: [...auth?.completed, id]}),
-      {
-        headers: { "Content-Type": "application/json" },
-        withCredentials: true
-      });
+        JSON.stringify({ completed: [...auth?.completed, id] }),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true
+        });
       console.log(JSON.stringify(response.data));
       const newCompleted = response.completed;
       setAuth({
@@ -297,7 +305,7 @@ function Lesson() {
             <MoveRight className="text-primary-color text-right" />
           </Button>
         )}
-        {index === lesson.length - 1 && (
+        {index === lesson.length - 1 && correct && (
           <Button
             className="bg-transparent transition -translate-y-1 duration-500 hover:bg-transparent hover:-translate-y-2"
             onClick={endLesson}
