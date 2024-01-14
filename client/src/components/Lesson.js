@@ -42,24 +42,27 @@ function Lesson() {
 
     const formData = new FormData();
 
-    formData.append('file', img_flask);
+    formData.append("file", img_flask);
 
     try {
       // Make a POST request to the Flask server
-      const response = await axios.post("http://localhost:5000/verify", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
+      const response = await axios.post(
+        "http://localhost:5000/verify",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       console.log(lesson[index]?.letter);
       console.log(response.data);
       console.log(lesson[index]?.letter == response.data);
       setCorrect(lesson[index]?.letter == response.data);
       setIncorrect(lesson[index]?.letter != response.data);
     } catch (error) {
-      console.error("Error uploading file", error)
+      console.error("Error uploading file", error);
     }
-
   }, [webcamRef, index]);
 
   const retake = () => {
@@ -71,20 +74,20 @@ function Lesson() {
     if (index >= latest - 1) setCorrect(false);
     else setCorrect(true);
     retake();
-    setLatest((prevLatest) => Math.max(prevLatest, index))
+    setLatest((prevLatest) => Math.max(prevLatest, index));
   };
 
   const decrementIndex = () => {
     setIndex((prevIndex) => prevIndex - 1);
     setCorrect(true);
     retake();
-    setLatest((prevLatest) => Math.max(prevLatest, index))
+    setLatest((prevLatest) => Math.max(prevLatest, index));
   };
 
   const endLesson = async () => {
     setEnd(true);
     await updateUser();
-  }
+  };
 
   useEffect(() => {
     console.log(index);
@@ -118,22 +121,24 @@ function Lesson() {
   const updateUser = async () => {
     console.log(JSON.stringify({ completed: [...auth?.completed, id] }));
     try {
-      const response = await axios.put(`api/user/${auth?.user}`,
+      const response = await axios.put(
+        `api/user/${auth?.user}`,
         JSON.stringify({ completed: [...auth?.completed, id] }),
         {
           headers: { "Content-Type": "application/json" },
-          withCredentials: true
-        });
+          withCredentials: true,
+        }
+      );
       console.log(JSON.stringify(response.data));
       const newCompleted = response.completed;
       setAuth({
         ...auth,
-        completed: newCompleted
+        completed: newCompleted,
       });
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   return (
     <div className="text-text-color w-screen h-screen items-center flex flex-col justify-center">
@@ -216,14 +221,17 @@ function Lesson() {
                   setLetter(e.target.value.toUpperCase());
                 }}
               />
-              <Button className="absolute hover:bg-secondary-color top-12 bg-primary-color text-white rounded-lg shadow-sm font-ShinGoPro bottom-2 right-1" onClick={() => {
-                if (letter === lesson[index]?.letter) {
-                  setCorrect(true);
-                } else {
-                  setIncorrect(true);
-                }
-                setLetter("");
-              }}>
+              <Button
+                className="absolute hover:bg-secondary-color top-12 bg-primary-color text-white rounded-lg shadow-sm font-ShinGoPro bottom-2 right-1"
+                onClick={() => {
+                  if (letter === lesson[index]?.letter) {
+                    setCorrect(true);
+                  } else {
+                    setIncorrect(true);
+                  }
+                  setLetter("");
+                }}
+              >
                 <MoveRight />
               </Button>
             </div>
@@ -274,28 +282,6 @@ function Lesson() {
           </div>
         </div>
       )}
-      {end === true && (
-        <div className="w-3/4 h-3/4 mt-24 flex flex-col justify-center items-center">
-          <div className="ml-10 mt-10 text-center">
-            <h3 className="text-3xl font-ShinGoPro">
-              <Trophy className="w-7 h-7 inline-block mr-2 -translate-y-[2px]" />
-              Great work,
-            </h3>
-            <h1 className="text-6xl font-ShinGoPro ">
-              You unlocked a new lesson!
-            </h1>
-          </div>
-          <img src={unlock} alt="unlock" className=" w-96 h-96 m-16" />
-          <Link to="/lessons">
-            <Button
-              className="text-3xl p-10 font-ShinGoPro bg-secondary-color transition duration-500 hover:bg-primary-color hover:-translate-y-2"
-            >
-              Lets Go!
-            </Button>
-          </Link>
-        </div>
-      )}
-
       <div className="flex justify-center w-1/6 z-30 -translate-y-5">
         {index > 0 && !end && (
           <Button
@@ -305,11 +291,11 @@ function Lesson() {
             <MoveLeft className="text-primary-color text-left" />
           </Button>
         )}
-        {!end &&
+        {!end && (
           <h3 className="text-xl font-ShinGoPro text-center">
             {index + 1}/{lesson.length}
           </h3>
-        }
+        )}
         {index < lesson.length - 1 && correct && !end && (
           <Button
             className="bg-transparent transition -translate-y-1 duration-500 hover:bg-transparent hover:-translate-y-2"
@@ -327,6 +313,25 @@ function Lesson() {
           </Button>
         )}
       </div>
+      {end === true && (
+        <div className="w-3/4 h-3/4 mt-24 flex flex-col justify-center items-center">
+          <div className="ml-10 mt-10 text-center">
+            <h3 className="text-3xl font-ShinGoPro">
+              <Trophy className="w-7 h-7 inline-block mr-2 -translate-y-[2px]" />
+              Great work,
+            </h3>
+            <h1 className="text-6xl font-ShinGoPro ">
+              You unlocked a new lesson!
+            </h1>
+          </div>
+          <img src={unlock} alt="unlock" className=" w-96 h-96 m-16" />
+          <Link to="/lessons">
+            <Button className="text-3xl p-10 font-ShinGoPro bg-secondary-color transition duration-500 hover:bg-primary-color hover:-translate-y-2">
+              Lets Go!
+            </Button>
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
