@@ -26,7 +26,11 @@ function Lesson({number}) {
   const [imgSrc, setImgSrc] = useState(null);
   const [latest, setLatest] = useState(0);
 
-  const printstuff(() => ())
+  const printstuff = (() => {
+    console.log(data);
+    console.log(correct);
+    console.log(latest);
+  })
 
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
@@ -47,8 +51,12 @@ function Lesson({number}) {
         },
       })
       .then((response) => {
-        if (lesson[index]?.letter === response.data) setCorrect(true);
-        printstuff()
+        data = response.data
+        if (lesson[index]?.letter == response.data) {
+          setCorrect(true);
+          printstuff();
+        }
+        printstuff();
       })
       .catch((error) => console.error("Error uploading file", error));
   }, [webcamRef]);
