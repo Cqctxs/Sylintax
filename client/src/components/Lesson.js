@@ -87,7 +87,7 @@ function Lesson() {
   return (
     <div className="text-text-color w-screen h-screen items-center flex flex-col justify-center">
       {/* match your hand with the image to get the correct letter, learning */}
-      {lesson[index]?.type === 1 && (
+      {lesson[index]?.type === 1 && !end && (
         <div className="w-3/4 h-3/4 mt-24">
           <div className="ml-10 mt-10">
             <h3 className="text-xl font-ShinGoPro">
@@ -142,7 +142,7 @@ function Lesson() {
         </div>
       )}
       {/* recognize and enter the correct letter from the image */}
-      {lesson[index]?.type === 2 && (
+      {lesson[index]?.type === 2 && !end && (
         <div className="w-3/4 h-3/4 mt-24">
           <div className="ml-10 mt-10">
             <h1 className="text-4xl font-ShinGoPro ">
@@ -180,7 +180,7 @@ function Lesson() {
         </div>
       )}
       {/* match hand to letter, testing only */}
-      {lesson[index]?.type === 3 && (
+      {lesson[index]?.type === 3 && !end && (
         <div className="w-3/4 h-3/4 mt-24">
           <div className="ml-10 mt-10">
             <h3 className="text-xl font-ShinGoPro">
