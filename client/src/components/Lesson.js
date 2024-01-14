@@ -6,6 +6,14 @@ import Webcam from "react-webcam";
 import { Link, useParams } from "react-router-dom";
 import { Sparkles, Flame, Trophy, MoveLeft, MoveRight } from "lucide-react";
 import { Button } from "./ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
 
 import unlock from "../images/unlock.png";
 
@@ -55,7 +63,7 @@ function Lesson() {
           },
         }
       );
-      console.log(lesson[index].letter);
+      console.log(lesson[index]?.letter);
       console.log(response.data);
       console.log(lesson[index]?.letter == response.data);
       setCorrect(lesson[index]?.letter == response.data);
@@ -332,6 +340,20 @@ function Lesson() {
           </Link>
         </div>
       )}
+
+      <Dialog>
+        <DialogTrigger>Open</DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Are you absolutely sure?</DialogTitle>
+            <DialogDescription>
+              This action cannot be undone. This will permanently delete your account
+              and remove your data from our servers.
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
+
     </div>
   );
 }
