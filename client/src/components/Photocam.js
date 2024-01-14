@@ -20,7 +20,7 @@ function Photocam() {
       ) : (
         <Webcam height={600} width={600} ref={webcamRef} />
       )}
-      <div className="btn-container">
+      <div>
         {imgSrc ? (
           <button onClick={retake}>Retake photo</button>
         ) : (
