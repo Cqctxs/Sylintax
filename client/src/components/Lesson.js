@@ -63,7 +63,7 @@ function Lesson() {
           },
         }
       );
-      console.log(lesson[index].letter);
+      console.log(lesson[index]?.letter);
       console.log(response.data);
       console.log(lesson[index]?.letter == response.data);
       setCorrect(lesson[index]?.letter == response.data);
