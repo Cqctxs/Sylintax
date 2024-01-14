@@ -101,7 +101,23 @@ function Lesson() {
       )}
       {/* recognize and enter the correct letter from the image */}
       {lesson[index]?.type === 2 &&
-        <div className="w-3/4 h-3/4 mt-24"></div>
+        <div className="w-3/4 h-3/4 mt-24">
+          <div className="ml-10 mt-10">
+            <h1 className="text-4xl font-ShinGoPro ">
+              Type in the correct meaning
+            </h1>
+          </div>
+          <div className="w-full h-full flex flex-col justify-center items-center">
+            <img
+              src={require(`../images/${lesson[index]?.letter}.png`)}
+              alt={"letter " + lesson[index]?.letter} style={{ transform: 'scaleX(-1)' }}
+            />
+            <div className="w-1/6 relative inline-flex items-center justify-center">
+              <input className="h-14 pl-4 mt-10 resize-none border-2 border-text-color rounded-lg shadow-sm font-ShinGoPro bg-background-color" placeholder="Type in a letter:" maxLength={1}/>
+              <Button className="absolute hover:bg-secondary-color top-12 bg-primary-color text-white rounded-lg shadow-sm font-ShinGoPro bottom-2 right-1"><MoveRight/></Button>
+            </div>
+          </div>
+        </div>
       }
       {/* match hand to letter, testing only */}
       {
