@@ -16,6 +16,9 @@ function Generatedemo() {
       };
   return (
     <div className="text-text-color">
+        <button onclick={() => {
+            generateResponse("A")
+        }} className="mt-44">Click me</button>
       {loading ? (<p>Analyzing...</p>) : (
         <p>{result}</p>
       )}
