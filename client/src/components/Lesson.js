@@ -16,7 +16,7 @@ function Lesson() {
   const [errMsg, setErrMsg] = useState("");
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
-  const [index, setIndex] = useState(2);
+  const [index, setIndex] = useState(0);
   const [current, setCurrent] = useState({});
   const [letter, setLetter] = useState("");
   const [correct, setCorrect] = useState(false);
