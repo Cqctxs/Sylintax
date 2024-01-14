@@ -3,9 +3,11 @@ import useAuth from "src/hooks/useAuth";
 import generate from "../api/cohere";
 import axios from "../api/axios";
 import Webcam from "react-webcam";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Sparkles, Flame, Trophy, MoveLeft, MoveRight } from "lucide-react";
 import { Button } from "./ui/button";
+
+import unlock from "../images/unlock.png";
 
 function Lesson() {
   const REQUEST_URL = "/api/lesson";
@@ -51,9 +53,9 @@ function Lesson() {
       })
       console.log(lesson[index]?.letter);
       console.log(response.data);
-      console.log(lesson[index].letter == response.data);
-      setCorrect(lesson[index].letter == response.data);
-      setIncorrect(lesson[index].letter != response.data);
+      console.log(lesson[index]?.letter == response.data);
+      setCorrect(lesson[index]?.letter == response.data);
+      setIncorrect(lesson[index]?.letter != response.data);
     } catch (error) {
       console.error("Error uploading file", error)
     }
@@ -273,16 +275,24 @@ function Lesson() {
         </div>
       )}
       {end === true && (
-        <div className="w-3/4 h-3/4 mt-24">
-          <div className="ml-10 mt-10">
-            <h3 className="text-xl font-ShinGoPro">
-              <Flame className="w-5 h-5 inline-block mr-2 -translate-y-[2px]" />
+        <div className="w-3/4 h-3/4 mt-24 flex flex-col justify-center items-center">
+          <div className="ml-10 mt-10 text-center">
+            <h3 className="text-3xl font-ShinGoPro">
+              <Trophy className="w-7 h-7 inline-block mr-2 -translate-y-[2px]" />
               Great work,
             </h3>
-            <h1 className="text-4xl font-ShinGoPro ">
+            <h1 className="text-6xl font-ShinGoPro ">
               You unlocked a new lesson!
             </h1>
           </div>
+          <img src={unlock} alt="unlock" className=" w-96 h-96 m-16" />
+          <Link to="/lessons">
+            <Button
+              className="text-3xl p-10 font-ShinGoPro bg-secondary-color transition duration-500 hover:bg-primary-color hover:-translate-y-2"
+            >
+              Lets Go!
+            </Button>
+          </Link>
         </div>
       )}
 
@@ -295,9 +305,11 @@ function Lesson() {
             <MoveLeft className="text-primary-color text-left" />
           </Button>
         )}
-        <h3 className="text-xl font-ShinGoPro text-center">
-          {index + 1}/{lesson.length}
-        </h3>
+        {!end &&
+          <h3 className="text-xl font-ShinGoPro text-center">
+            {index + 1}/{lesson.length}
+          </h3>
+        }
         {index < lesson.length - 1 && correct && !end && (
           <Button
             className="bg-transparent transition -translate-y-1 duration-500 hover:bg-transparent hover:-translate-y-2"
@@ -306,7 +318,7 @@ function Lesson() {
             <MoveRight className="text-primary-color text-right" />
           </Button>
         )}
-        {index === lesson.length - 1 && correct && (
+        {index === lesson.length - 1 && !end && correct && (
           <Button
             className="bg-transparent transition -translate-y-1 duration-500 hover:bg-transparent hover:-translate-y-2"
             onClick={endLesson}
