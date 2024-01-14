@@ -24,6 +24,8 @@ app.use("/login", require("./routes/login"));
 app.use("/refresh", require("./routes/refresh"));
 app.use("/logout", require("./routes/logout"));
 
+app.use("/api/lesson", require("./routes/api/lesson"));
+
 app.use("/", function (req, res) {
   res.json({ error: "endpoint not found" });
 });
