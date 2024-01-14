@@ -64,6 +64,7 @@ function Lesson({number}) {
   };
 
   const endLesson = () => {
+    updateUser();
     setEnd(true);
   }
 
@@ -92,11 +93,14 @@ function Lesson({number}) {
     try {
       const response = await axios.put(`${REQUEST_URL}/${id}`,
       JSON.stringify({completed: [...auth?.completed, number]}),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        });
-      setAuth(response);
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      });
+      const user = auth?.username;
+      const newCompleted = response.completed;
+      const access = auth?.accessToken
+      setAuth({user, newCompleted, access});
     } catch (err) {
 
     }
