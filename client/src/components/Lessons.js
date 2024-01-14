@@ -9,7 +9,7 @@ function Lessons() {
     if (completed.includes(id)) {
       return "completed";
     }
-    if (completed.includes(prev)) {
+    if (completed.includes(prev) || id === "65a34ba1f122554807584d58") {
       return "unlocked"
     }
     return "locked";
