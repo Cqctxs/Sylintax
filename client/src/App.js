@@ -31,7 +31,7 @@ function App() {
               <Route path="lessons" element={<Lessons />} />
             </Route>
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.Editor, ROLES.User]} />}>
-              <Route path="lesson" element={<Lesson />} />
+              <Route path="lesson/:id" element={<Lesson />} />
             </Route>
           </Route>
 

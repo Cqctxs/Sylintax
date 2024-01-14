@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import useAuth from "src/hooks/useAuth";
 import generate from "../api/cohere";
 import axios from "../api/axios";
+import { useParams } from "react-router-dom";
 
 function Lesson() {
-  const id = "65a34ba1f122554807584d58";
   const REQUEST_URL = "/api/lesson";
+  const id = useParams().id;
   const { auth } = useAuth();
   const [lesson, setLesson] = useState([]);
   const [errMsg, setErrMsg] = useState("");
