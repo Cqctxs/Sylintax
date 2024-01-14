@@ -11,24 +11,25 @@ CORS(app)  # Enable CORS for all routes
 
 @app.route('/verify', methods=['POST'])
 def verify():
-    print(request.files)
-    if 'file' not in request.files:
+    if 'file' not in request.form.to_dict():
         print("No file provided")
         return jsonify({'error': 'No file provided'}), 400
-
-    file = request.files['file']
     
-    img_bytes = file.read()
+    file = request.form.to_dict()['file']
+    toDecode = file.tobytes()
+    decoded = base64.b64decode(toDecode)
 
-    # Convert the image bytes to a NumPy array
-    nparr = np.frombuffer(img_bytes, np.uint8)
-
-    # Decode the NumPy array to an OpenCV image
-    img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+    with open("imageToSave.png", "wb") as fh:
+        fh.write(base64.decodebytes(decoded))
     
-    print("image recieved!")
-
-    return detect_sign(img)
+    # file = base64.b64decode(file);
+    
+    # img = file.decode(errors="ignore")
+    
+    
+    
+    # return detect_sign(img)
+    return 0;
 
 if __name__ == '__main__':
     app.run(debug=True)

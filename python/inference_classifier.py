@@ -22,8 +22,11 @@ def detect_sign(frame):
     
     frame = cv2.imread(frame)
     
+    while True:
+        cv2.imshow(frame)
+    
     frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        
+    
     results = hands.process(frame_rgb)
     
     if (results.multi_hand_landmarks):
