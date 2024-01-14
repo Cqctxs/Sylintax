@@ -13,9 +13,9 @@ import { Check, Lock } from "lucide-react";
 
 const LessonCard = ({ title, description, id, next, status }) => {
     return (
-        <div className="inline-flex w-full items-center justify-center">
+        <div className="inline-flex w-96 items-center justify-center m-8">
             {status === "unlocked" &&
-                <Card className="p-10 w-1/3 bg-background-color border-primary-color border-2 text-text-color">
+                <Card className="p-10 bg-background-color border-primary-color border-2 text-text-color">
                     <CardTitle className="font-ShinGoPro mb-5">{title}</CardTitle>
                     <CardDescription className="text-primary-color">
                         {description}
@@ -36,7 +36,7 @@ const LessonCard = ({ title, description, id, next, status }) => {
                 </Card>
             }
             {status === "completed" &&
-                <Card className="p-10 w-1/3 bg-background-color border-primary-color border-2 text-text-color">
+                <Card className="p-10 bg-background-color border-primary-color border-2 text-text-color">
                     <CardTitle className="font-ShinGoPro mb-5">{title}</CardTitle>
                     <CardDescription className="text-primary-color">
                         {description}
@@ -57,7 +57,7 @@ const LessonCard = ({ title, description, id, next, status }) => {
                 </Card>
             }
             {status === "locked" &&
-                <Card className="grayscale p-10 w-1/3 bg-background-color border-primary-color border-2 text-text-color">
+                <Card className="grayscale p-10 bg-background-color border-primary-color border-2 text-text-color">
                     <CardTitle className="font-ShinGoPro mb-5">{title}</CardTitle>
                     <CardDescription className="text-primary-color">
                         {description}
