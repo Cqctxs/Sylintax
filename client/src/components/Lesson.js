@@ -3,7 +3,7 @@ import useAuth from "src/hooks/useAuth";
 import generate from "../api/cohere";
 import axios from "../api/axios";
 import { useParams } from "react-router-dom";
-import { Sparkles } from "lucide-react";
+import { Sparkles, MoveLeft, MoveRight } from "lucide-react";
 
 function Lesson() {
   const REQUEST_URL = "/api/lesson";
@@ -38,7 +38,7 @@ function Lesson() {
   }, []);
 
   return (
-    <div className="text-text-color w-screen h-screen items-center flex justify-center">
+    <div className="text-text-color w-screen h-screen items-center flex flex-col justify-center">
       {/* match your hand with the image to get the correct letter, learning */}
       {
         lesson[index]?.type === 1 &&
@@ -52,7 +52,7 @@ function Lesson() {
           <div className="w-full h-full flex justify-center items-center">
             {/* photocam */}
             <img src={require(`../images/${lesson[index]?.letter}.png`)} alt={"letter " + lesson[index]?.letter} />
-            
+
           </div>
         </div>
       }
@@ -70,6 +70,14 @@ function Lesson() {
 
         </div>
       }
+      <div className="flex justify-between">
+        <MoveLeft />
+        <h3 className="text-xl font-ShinGoPro">
+          {index+1}/{lesson.length}
+        </h3>
+        <MoveRight />
+
+      </div>
     </div>
   );
 }
