@@ -5,6 +5,7 @@ import axios from "../api/axios";
 import Webcam from "react-webcam";
 import { useParams } from "react-router-dom";
 import { Sparkles, MoveLeft, MoveRight } from "lucide-react";
+import { Button } from "./ui/button";
 
 function Lesson() {
   const REQUEST_URL = "/api/lesson";
@@ -28,6 +29,14 @@ function Lesson() {
   const retake = () => {
     setImgSrc(null);
   };
+
+  const incrementIndex = () => {
+    setIndex(index + 1);
+  }
+
+  const decrementIndex = () => {
+    setIndex(index - 1);
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,7 +63,7 @@ function Lesson() {
     <div className="text-text-color w-screen h-screen items-center flex flex-col justify-center">
       {/* match your hand with the image to get the correct letter, learning */}
       {lesson[index]?.type === 1 && (
-        <div className="w-3/4 h-3/4 bg-background-color border-2 border-primary-color rounded-lg shadow-sm mt-24">
+        <div className="w-3/4 h-3/4 mt-24">
           <div className="ml-10 mt-10">
             <h3 className="text-xl font-ShinGoPro">
               <Sparkles className="w-5 h-5 inline-block mr-2 -translate-y-[2px]" />
@@ -70,16 +79,20 @@ function Lesson() {
             ) : (
               <Webcam className='absolute border-2 border-text-color rounded-lg shadow-sm' height={600} width={600} ref={webcamRef} mirrored={true} />
             )}
-            <img
-              className='absolute'
-              src={require(`../images/${lesson[index]?.letter}.png`)}
-              alt={"letter " + lesson[index]?.letter} style={{ transform: 'scaleX(-1)' }}
-            />
+            {imgSrc ? (
+              <div></div>
+            ) : (
+              <img
+                className='absolute'
+                src={require(`../images/${lesson[index]?.letter}.png`)}
+                alt={"letter " + lesson[index]?.letter} style={{ transform: 'scaleX(-1)' }}
+              />
+            )}
             <div>
               {imgSrc ? (
-                <button className="mt-[30rem]" onClick={retake}>Retake photo</button>
+                <button className="mt-[31rem]" onClick={retake}>Retake photo</button>
               ) : (
-                <button className="mt-[30rem]"onClick={capture}>Capture photo</button>
+                <button className="mt-[31rem]" onClick={capture}>Capture photo</button>
               )}
             </div>
           </div>
@@ -87,23 +100,30 @@ function Lesson() {
         </div>
       )}
       {/* recognize and enter the correct letter from the image */}
-      {lesson[index]?.type === 2 && 
-        <div className="w-3/4 h-3/4 bg-background-color border-2 border-primary-color rounded-lg shadow-sm"></div>
+      {lesson[index]?.type === 2 &&
+        <div className="w-3/4 h-3/4 mt-24"></div>
       }
       {/* match hand to letter, testing only */}
       {
         lesson[index]?.type === 3 &&
-        <div className="w-3/4 h-3/4 bg-background-color border-2 border-primary-color rounded-lg shadow-sm">
+        <div className="w-3/4 h-3/4 mt-24">
 
         </div>
       }
-      <div className="flex justify-between w-1/6">
-        {index > 0 && <MoveLeft />}
-        <h3 className="text-xl font-ShinGoPro">
+      <div className="flex justify-center w-1/6 z-30 -translate-y-5">
+        {index > 0 && (
+          <Button className='bg-transparent transition -translate-y-1 duration-500 hover:bg-transparent hover:-translate-y-2' onClick={decrementIndex}>
+            <MoveLeft className="text-primary-color text-left" />
+          </Button>
+        )}
+        <h3 className="text-xl font-ShinGoPro text-center">
           {index + 1}/{lesson.length}
         </h3>
-        {index < lesson.length && <MoveRight />}
-
+        {index < lesson.length - 1 && (
+          <Button className='bg-transparent transition -translate-y-1 duration-500 hover:bg-transparent hover:-translate-y-2' onClick={incrementIndex}>
+            <MoveRight className="text-primary-color text-right" />
+          </Button>
+        )}
       </div>
     </div>
   );
