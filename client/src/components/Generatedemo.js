@@ -17,7 +17,7 @@ function Generatedemo() {
   return (
     <div className="text-text-color mt-36">
         {loading ? "Analyzing..." : `Result: ${result}`}
-        <button onClick={fetchData}>Fetch Data</button>
+        <button onClick={fetchData} className="mt-10">Fetch Data</button>
     </div>
   )
 }
