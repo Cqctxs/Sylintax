@@ -71,7 +71,7 @@ function Lesson() {
 
   const decrementIndex = () => {
     setIndex((prevIndex) => prevIndex - 1);
-    if (index > latest) setCorrect(true);
+    setCorrect(true);
     retake();
     setLatest((prevLatest) => Math.max(prevLatest, index))
   };
