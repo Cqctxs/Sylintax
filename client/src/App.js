@@ -13,6 +13,7 @@ import Lesson from "./components/Lesson";
 import Lessons from "./components/Lessons";
 import Account from "./components/Account";
 import Photocam from "./components/Photocam";
+import Generatedemo from "./components/Generatedemo";
 
 
 const ROLES = {
@@ -38,6 +39,9 @@ function App() {
             </Route>
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.Editor, ROLES.User]} />}>
               <Route path="account" element={<Account />} />
+            </Route>
+            <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.Editor, ROLES.User]} />}>
+              <Route path="demo" element={<Generatedemo />} />
             </Route>
           </Route>
 
