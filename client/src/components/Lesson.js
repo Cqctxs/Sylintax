@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import useAuth from 'src/hooks/useAuth';
-import generate from '../api/cohere';
+import React, { useEffect, useState } from "react";
+import useAuth from "src/hooks/useAuth";
+import generate from "../api/cohere";
 import axios from "../api/axios";
 
 function Lesson() {
@@ -9,16 +9,14 @@ function Lesson() {
   const { auth } = useAuth();
   const [lesson, setLesson] = useState([]);
   const [errMsg, setErrMsg] = useState("");
-  const [result, setResult] = useState('');
+  const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       console.log(JSON.stringify({ id: id }));
       try {
-        const response = await axios.get(
-          `${REQUEST_URL}?id=${id}`
-        );
+        const response = await axios.get(`${REQUEST_URL}/${id}`);
         setLesson(response?.data?.lesson);
       } catch (err) {
         if (!err?.response) {
@@ -31,46 +29,46 @@ function Lesson() {
           setErrMsg("Getting lesson failed.");
         }
       }
-    }
+    };
     fetchData();
   }, []);
 
-  // const fetchData = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const message = await generate('A');
-  //     setResult(message);
-  //     setLoading(false);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  console.log(lesson);
+
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const message = await generate("A");
+      setResult(message);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="text-text-color">
       <br />
-
       <br />
-
       <br />
-
       <br />
-
       <br />
-
       <br />
-
       <br />
-
       {auth?.user} {JSON.stringify(auth.completed)}
       <br />
-      {loading ? 'Analyzing...' : `Result: ${result}`}
+      {loading ? "Analyzing..." : `Result: ${result}`}
       <br />
-      {/* <button onClick={fetchData}>Fetch Data</button> */}
-      {JSON.stringify(lesson)}
+      <button onClick={fetchData}>Fetch Data</button>
+      {lesson && <ul>
+        {lesson.map((data) => (
+          <li>{JSON.stringify(data)}</li>
+        ))}
+      </ul>
+      }
       {errMsg}
     </div>
-  )
+  );
 }
 
-export default Lesson
+export default Lesson;
