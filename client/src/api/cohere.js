@@ -7,8 +7,8 @@ const cohere = new CohereClient({
 const generate = async (letter) => {
   const response = await cohere.generate({
     model: "command",
-    prompt: `Give informal feedback to a student trying to learn the sign language letter ${letter}, but they didn\'t get the exact hand shape down. Try to give some tips, such as how they should position their fingers.`,
-    maxTokens: 96,
+    prompt: `Give short, consice, 2 - 3 sentence feedback to a someone trying to learn the ASL alphabet letter ${letter}. An example of a good response is: "Good effort trying to learn the sign for the letter A! It's awesome that you are taking the time to learn sign language. Remember to practice doing the sign for A in front of a mirror so you can perfect your form. Also, it can be helpful to try to write out the alphabet with your hands to help memorize the signs." Do not ask to provide extra feedback or help`,
+    maxTokens: 100,
     temperature: 0.9,
     k: 0,
     stopSequences: [],
