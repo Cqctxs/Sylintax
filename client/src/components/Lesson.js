@@ -54,39 +54,42 @@ function Lesson() {
     <div className="text-text-color w-screen h-screen items-center flex flex-col justify-center">
       {/* match your hand with the image to get the correct letter, learning */}
       {lesson[index]?.type === 1 && (
-        <div className="w-3/4 h-3/4 bg-background-color border-2 border-primary-color rounded-lg shadow-sm">
-          <h3 className="text-xl font-ShinGoPro">
-            <Sparkles className="w-5 h-5 inline-block mr-2 -translate-y-[2px]" />
-            New Letter!
-          </h3>
-          <h1 className="text-4xl font-ShinGoPro ">
-            This is the letter "{lesson[index]?.letter}"
-          </h1>
-          <div className="w-full h-full flex justify-center items-center">
-            {/* photocam */}
-            <img
-              src={require(`../images/${lesson[index]?.letter}.png`)}
-              alt={"letter " + lesson[index]?.letter}
-            />
+        <div className="w-3/4 h-3/4 bg-background-color border-2 border-primary-color rounded-lg shadow-sm mt-24">
+          <div className="ml-10 mt-10">
+            <h3 className="text-xl font-ShinGoPro">
+              <Sparkles className="w-5 h-5 inline-block mr-2 -translate-y-[2px]" />
+              New Letter!
+            </h3>
+            <h1 className="text-4xl font-ShinGoPro ">
+              This is the letter "{lesson[index]?.letter}"
+            </h1>
           </div>
-          {imgSrc ? (
-            <img src={imgSrc} alt="webcam" />
-          ) : (
-            <Webcam height={600} width={600} ref={webcamRef} />
-          )}
-          <div>
+          <div className="w-full h-full relative flex flex-row-reverse justify-center items-center -translate-y-20">
             {imgSrc ? (
-              <button onClick={retake}>Retake photo</button>
+              <img className="absolute border-2 border-text-color rounded-lg shadow-sm" src={imgSrc} alt="webcam" width={600} height={600} />
             ) : (
-              <button onClick={capture}>Capture photo</button>
+              <Webcam className='absolute border-2 border-text-color rounded-lg shadow-sm' height={600} width={600} ref={webcamRef} mirrored={true} />
             )}
+            <img
+              className='absolute'
+              src={require(`../images/${lesson[index]?.letter}.png`)}
+              alt={"letter " + lesson[index]?.letter} style={{ transform: 'scaleX(-1)' }}
+            />
+            <div>
+              {imgSrc ? (
+                <button className="mt-[30rem]" onClick={retake}>Retake photo</button>
+              ) : (
+                <button className="mt-[30rem]"onClick={capture}>Capture photo</button>
+              )}
+            </div>
           </div>
+
         </div>
       )}
       {/* recognize and enter the correct letter from the image */}
-      {lesson[index]?.type === 2 && (
+      {lesson[index]?.type === 2 && 
         <div className="w-3/4 h-3/4 bg-background-color border-2 border-primary-color rounded-lg shadow-sm"></div>
-      )}
+      }
       {/* match hand to letter, testing only */}
       {
         lesson[index]?.type === 3 &&
@@ -94,12 +97,12 @@ function Lesson() {
 
         </div>
       }
-      <div className="flex justify-between">
-        <MoveLeft />
+      <div className="flex justify-between w-1/6">
+        {index > 0 && <MoveLeft />}
         <h3 className="text-xl font-ShinGoPro">
-          {index+1}/{lesson.length}
+          {index + 1}/{lesson.length}
         </h3>
-        <MoveRight />
+        {index < lesson.length && <MoveRight />}
 
       </div>
     </div>
