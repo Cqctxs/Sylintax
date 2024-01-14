@@ -17,6 +17,9 @@ function Lesson() {
   const [loading, setLoading] = useState(false);
   const [index, setIndex] = useState(0);
   const [current, setCurrent] = useState({});
+  const [letter, setLetter] = useState("");
+  const [correct, setCorrect] = useState(false);
+  const [incorrect, setIncorrect] = useState(false);
 
   const webcamRef = useRef(null);
   const [imgSrc, setImgSrc] = useState(null);
@@ -24,30 +27,31 @@ function Lesson() {
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
     setImgSrc(imageSrc);
-    console.log(imageSrc)
+    console.log(imageSrc);
 
     const formData = new FormData();
 
     // Make a POST request to the Flask server
-    axios.post('http://localhost:5000/verify', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    })
-    .then(response => console.log(response.data))
-    .catch(error => console.error('Error uploading file', error));
+    axios
+      .post("http://localhost:5000/verify", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => console.log(response.data))
+      .catch((error) => console.error("Error uploading file", error));
   }, [webcamRef]);
 
   function dataURItoBlob(dataURI) {
-    const byteString = atob(dataURI.split(',')[1]);
-    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    const byteString = atob(dataURI.split(",")[1]);
+    const mimeString = dataURI.split(",")[0].split(":")[1].split(";")[0];
     const ab = new ArrayBuffer(byteString.length);
     const ia = new Uint8Array(ab);
-  
+
     for (let i = 0; i < byteString.length; i++) {
       ia[i] = byteString.charCodeAt(i);
     }
-  
+
     return new Blob([ab], { type: mimeString });
   }
 
@@ -57,11 +61,11 @@ function Lesson() {
 
   const incrementIndex = () => {
     setIndex(index + 1);
-  }
+  };
 
   const decrementIndex = () => {
     setIndex(index - 1);
-  }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -87,7 +91,7 @@ function Lesson() {
   return (
     <div className="text-text-color w-screen h-screen items-center flex flex-col justify-center">
       {/* match your hand with the image to get the correct letter, learning */}
-      {lesson[index]?.type === 1 &&
+      {lesson[index]?.type === 1 && (
         <div className="w-3/4 h-3/4 mt-24">
           <div className="ml-10 mt-10">
             <h3 className="text-xl font-ShinGoPro">
@@ -100,32 +104,49 @@ function Lesson() {
           </div>
           <div className="w-full h-full relative flex flex-row-reverse justify-center items-center -translate-y-20">
             {imgSrc ? (
-              <img className="absolute border-2 border-text-color rounded-lg shadow-sm" src={imgSrc} alt="webcam" width={600} height={600} />
+              <img
+                className="absolute border-2 border-text-color rounded-lg shadow-sm"
+                src={imgSrc}
+                alt="webcam"
+                width={600}
+                height={600}
+              />
             ) : (
-              <Webcam className='absolute border-2 border-text-color rounded-lg shadow-sm' height={600} width={600} ref={webcamRef} mirrored={true} screenshotFormat="image/jpeg" />
+              <Webcam
+                className="absolute border-2 border-text-color rounded-lg shadow-sm"
+                height={600}
+                width={600}
+                ref={webcamRef}
+                mirrored={true}
+                screenshotFormat="image/jpeg"
+              />
             )}
             {imgSrc ? (
               <div></div>
             ) : (
               <img
-                className='absolute'
+                className="absolute"
                 src={require(`../images/${lesson[index]?.letter}.png`)}
-                alt={"letter " + lesson[index]?.letter} style={{ transform: 'scaleX(-1)' }}
+                alt={"letter " + lesson[index]?.letter}
+                style={{ transform: "scaleX(-1)" }}
               />
             )}
             <div>
               {imgSrc ? (
-                <button className="mt-[31rem]" onClick={retake}>Retake photo</button>
+                <button className="mt-[31rem]" onClick={retake}>
+                  Retake photo
+                </button>
               ) : (
-                <button className="mt-[31rem]" onClick={capture}>Capture photo</button>
+                <button className="mt-[31rem]" onClick={capture}>
+                  Capture photo
+                </button>
               )}
             </div>
           </div>
-
         </div>
-      }
+      )}
       {/* recognize and enter the correct letter from the image */}
-      {lesson[index]?.type === 2 &&
+      {lesson[index]?.type === 2 && (
         <div className="w-3/4 h-3/4 mt-24">
           <div className="ml-10 mt-10">
             <h1 className="text-4xl font-ShinGoPro ">
@@ -135,18 +156,35 @@ function Lesson() {
           <div className="w-full h-full flex flex-col justify-center items-center">
             <img
               src={require(`../images/${lesson[index]?.letter}.png`)}
-              alt={"letter " + lesson[index]?.letter} style={{ transform: 'scaleX(-1)' }}
+              alt={"letter " + lesson[index]?.letter}
+              style={{ transform: "scaleX(-1)" }}
             />
             <div className="w-1/6 relative inline-flex items-center justify-center">
-              <input className="h-14 pl-4 mt-10 resize-none border-2 border-text-color rounded-lg shadow-sm font-ShinGoPro bg-background-color" placeholder="Type in a letter:" maxLength={1} />
-              <Button className="absolute hover:bg-secondary-color top-12 bg-primary-color text-white rounded-lg shadow-sm font-ShinGoPro bottom-2 right-1"><MoveRight /></Button>
+              <input
+                className="h-14 pl-4 mt-10 resize-none border-2 border-text-color rounded-lg shadow-sm font-ShinGoPro bg-background-color"
+                placeholder="Type in a letter:"
+                maxLength={1}
+                value={letter}
+                onChange={(e) => {
+                  setLetter(e.target.value.toUpperCase());
+                }}
+              />
+              <Button className="absolute hover:bg-secondary-color top-12 bg-primary-color text-white rounded-lg shadow-sm font-ShinGoPro bottom-2 right-1" onClick={() => {
+                if (letter === lesson[index]?.letter) {
+                  setCorrect(true);
+                } else {
+                  setIncorrect(true);
+                }
+                setLetter("");
+              }}>
+                <MoveRight />
+              </Button>
             </div>
           </div>
         </div>
-      }
+      )}
       {/* match hand to letter, testing only */}
-      {
-        lesson[index]?.type === 3 &&
+      {lesson[index]?.type === 3 && (
         <div className="w-3/4 h-3/4 mt-24">
           <div className="ml-10 mt-10">
             <h3 className="text-xl font-ShinGoPro">
@@ -159,23 +197,42 @@ function Lesson() {
           </div>
           <div className="w-full h-full relative flex flex-row-reverse justify-center items-center -translate-y-20">
             {imgSrc ? (
-              <img className="absolute border-2 border-text-color rounded-lg shadow-sm" src={imgSrc} alt="webcam" width={600} height={600} />
+              <img
+                className="absolute border-2 border-text-color rounded-lg shadow-sm"
+                src={imgSrc}
+                alt="webcam"
+                width={600}
+                height={600}
+              />
             ) : (
-              <Webcam className='absolute border-2 border-text-color rounded-lg shadow-sm' height={600} width={600} ref={webcamRef} mirrored={true} />
+              <Webcam
+                className="absolute border-2 border-text-color rounded-lg shadow-sm"
+                height={600}
+                width={600}
+                ref={webcamRef}
+                mirrored={true}
+              />
             )}
             <div>
               {imgSrc ? (
-                <button className="mt-[31rem]" onClick={retake}>Retake photo</button>
+                <button className="mt-[31rem]" onClick={retake}>
+                  Retake photo
+                </button>
               ) : (
-                <button className="mt-[31rem]" onClick={capture}>Capture photo</button>
+                <button className="mt-[31rem]" onClick={capture}>
+                  Capture photo
+                </button>
               )}
             </div>
           </div>
         </div>
-      }
+      )}
       <div className="flex justify-center w-1/6 z-30 -translate-y-5">
         {index > 0 && (
-          <Button className='bg-transparent transition -translate-y-1 duration-500 hover:bg-transparent hover:-translate-y-2' onClick={decrementIndex}>
+          <Button
+            className="bg-transparent transition -translate-y-1 duration-500 hover:bg-transparent hover:-translate-y-2"
+            onClick={decrementIndex}
+          >
             <MoveLeft className="text-primary-color text-left" />
           </Button>
         )}
@@ -183,7 +240,10 @@ function Lesson() {
           {index + 1}/{lesson.length}
         </h3>
         {index < lesson.length - 1 && (
-          <Button className='bg-transparent transition -translate-y-1 duration-500 hover:bg-transparent hover:-translate-y-2' onClick={incrementIndex}>
+          <Button
+            className="bg-transparent transition -translate-y-1 duration-500 hover:bg-transparent hover:-translate-y-2"
+            onClick={incrementIndex}
+          >
             <MoveRight className="text-primary-color text-right" />
           </Button>
         )}
