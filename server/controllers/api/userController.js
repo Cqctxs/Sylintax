@@ -23,12 +23,14 @@ const updateUserByUsername = async (req, res) => {
     if (!username) return res.status(400).json({ 'message': 'username is required' });
     try {
         const foundUser = await User.findOne({username: username}).exec();
+        console.log(JSON.stringify(foundUser));
         if (!foundUser) res.status(404);
         foundUser.completed = completed;
         const result = await foundUser.save();
         res.json({ username, completed });
     } catch (err) {
         res.status(500).json({ 'message': err.message });
+        console.log(err.message);
     }
 }
 
