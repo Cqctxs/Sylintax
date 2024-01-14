@@ -11,7 +11,7 @@ import { Button } from "./button";
 import { Link } from "react-router-dom";
 import { Check, Lock } from "lucide-react";
 
-const LessonCard = ({ title, description, id, status }) => {
+const LessonCard = ({ title, description, id, next, status }) => {
     return (
         <div className="inline-flex w-full items-center justify-center">
             {status === "unlocked" &&
