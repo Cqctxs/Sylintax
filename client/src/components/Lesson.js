@@ -68,7 +68,7 @@ function Lesson() {
       console.log(lesson[index].letter);
       console.log(response.data);
       console.log(lesson[index]?.letter == response.data);
-      setCorrect(lesson[index]?.letter == response.data);
+      setCorrect((lesson[index]?.letter == response.data || lesson[index]?.letter == null));
       setIncorrect(lesson[index]?.letter != response.data);
     } catch (error) {
       console.error("Error uploading file", error);
