@@ -4,7 +4,7 @@ import generate from "../api/cohere";
 import axios from "../api/axios";
 import Webcam from "react-webcam";
 import { Link, useParams } from "react-router-dom";
-import { Sparkles, Flame, Trophy, MoveLeft, MoveRight } from "lucide-react";
+import { Sparkles, Flame, Trophy, MoveLeft, MoveRight, CheckCircle2, XCircle } from "lucide-react";
 import { Button } from "./ui/button";
 import {
   Dialog,
@@ -31,6 +31,7 @@ function Lesson() {
   const [letter, setLetter] = useState("");
   const [correct, setCorrect] = useState(false);
   const [incorrect, setIncorrect] = useState(false);
+  const [opened, setOpened] = useState(false);
 
   const webcamRef = useRef(null);
   const [imgSrc, setImgSrc] = useState(null);
@@ -63,7 +64,8 @@ function Lesson() {
           },
         }
       );
-      console.log(lesson[index]?.letter);
+      setOpened(true);
+      console.log(lesson[index].letter);
       console.log(response.data);
       console.log(lesson[index]?.letter == response.data);
       setCorrect(lesson[index]?.letter == response.data);
@@ -147,6 +149,10 @@ function Lesson() {
       console.log(err);
     }
   };
+
+  const close = () => {
+    setOpened(prevValue => false);
+  }
 
   return (
     <div className="text-text-color w-screen h-screen items-center flex flex-col justify-center">
@@ -232,6 +238,7 @@ function Lesson() {
               <Button
                 className="absolute hover:bg-secondary-color top-12 bg-primary-color text-white rounded-lg shadow-sm font-ShinGoPro bottom-2 right-1"
                 onClick={() => {
+                  setOpened(true);
                   if (letter === lesson[index]?.letter) {
                     setCorrect(true);
                   } else {
@@ -340,19 +347,28 @@ function Lesson() {
           </Link>
         </div>
       )}
-
-      <Dialog>
-        <DialogTrigger>Open</DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Are you absolutely sure?</DialogTitle>
-            <DialogDescription>
-              This action cannot be undone. This will permanently delete your account
-              and remove your data from our servers.
-            </DialogDescription>
-          </DialogHeader>
-        </DialogContent>
-      </Dialog>
+      {correct === true && opened && (
+      <div className="fixed bottom-0 z-50 w-full h-40 p-5 border-2 border-text-color rounded-lg bg-secondary-color flex justify-between items-center">
+        <div className="flex justify-start items-center">
+          <CheckCircle2 className="mr-5 w-20 h-20 text-text-color" />
+          <h1 className="text-6xl font-ShinGoPro ">
+            Great work!
+          </h1>
+        </div>
+        <Button className="text-4x font-ShinGoPro mr-10 bg-background-color border-2 border-text-color" onClick={close}>Continue</Button>
+      </div>
+      )}
+      {incorrect === true && opened && (
+      <div className="fixed bottom-0 z-50 w-full h-40 p-5 border-2 border-text-color rounded-lg bg-[#FF7F7F] flex justify-between items-center">
+        <div className="flex justify-start items-center">
+          <XCircle className="mr-5 w-20 h-20 text-text-color" />
+          <h1 className="text-6xl font-ShinGoPro ">
+            Sorry, try again!
+          </h1>
+        </div>
+        <Button className="text-4x font-ShinGoPro mr-10 bg-background-color border-2 border-text-color" onClick={close}>Continue</Button>
+      </div>
+      )}
 
     </div>
   );
