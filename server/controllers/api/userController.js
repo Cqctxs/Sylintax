@@ -14,4 +14,23 @@ const getUserByUsername = async (req, res) => {
     }
 }
 
-module.exports = { getUserByUsername };
+const updateUserByUsername = async (req, res) => {
+    const completed = req?.body?.completed
+    if (!completed) {
+        return res.status(400).json({ 'message': 'Completed is required.' });
+    }
+    const username = req.params.username;
+    if (!username) return res.status(400).json({ 'message': 'username is required' });
+    try {
+        const foundUser = await User.findOne({username: username}).exec();
+        if (!foundUser) res.status(404);
+        foundUser.completed = completed;
+        const result = await foundUser.save();
+        res.json({ username, completed });
+    } catch (err) {
+        res.status(500).json({ 'message': err.message });
+    }
+}
+
+
+module.exports = { getUserByUsername, updateUserByUsername };
