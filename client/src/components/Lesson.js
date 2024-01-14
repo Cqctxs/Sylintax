@@ -9,6 +9,7 @@ import { Button } from "./ui/button";
 
 function Lesson() {
   const REQUEST_URL = "/api/lesson";
+  const [end, setEnd] = useState(false);
   const id = useParams().id;
   const { auth } = useAuth();
   const [lesson, setLesson] = useState([]);
@@ -57,6 +58,10 @@ function Lesson() {
   const decrementIndex = () => {
     setIndex(index - 1);
   };
+
+  const endLesson = () => {
+    setEnd(true);
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -218,6 +223,20 @@ function Lesson() {
           </div>
         </div>
       )}
+      {end === true && (
+        <div className="w-3/4 h-3/4 mt-24">
+          <div className="ml-10 mt-10">
+            <h3 className="text-xl font-ShinGoPro">
+              <Flame className="w-5 h-5 inline-block mr-2 -translate-y-[2px]" />
+              Challenge!
+            </h3>
+            <h1 className="text-4xl font-ShinGoPro ">
+              Sign the letter "{lesson[index]?.letter}"
+            </h1>
+          </div>
+        </div>
+      )}
+
       <div className="flex justify-center w-1/6 z-30 -translate-y-5">
         {index > 0 && (
           <Button
@@ -241,11 +260,7 @@ function Lesson() {
         {index === lesson.length - 1 && (
           <Button
             className="bg-transparent transition -translate-y-1 duration-500 hover:bg-transparent hover:-translate-y-2"
-            onClick={() => {
-              setIndex(0);
-              setImgSrc(null);
-              
-            }}
+            onClick={endLesson}
           >
             <MoveRight className="text-primary-color text-right" />
           </Button>
