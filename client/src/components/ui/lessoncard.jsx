@@ -15,8 +15,11 @@ const LessonCard = ({ title }) => {
             <CardDescription>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </CardDescription>
-            <CardFooter>
-                
+            <CardFooter className='flex justify-center items-center'>
+                <div>
+                    <div className='bg-black w-10 h-10'>a</div>
+                    <div className=' bg-black w-10 h-10'>b</div>
+                </div>
             </CardFooter>
         </Card>
     );

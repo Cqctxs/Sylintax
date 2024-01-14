@@ -6,7 +6,8 @@ const Layout = () => {
     const backdrop = `rgba(47, 62, 70, 0.3)`;
     return (
         <main className="App">
-            <div className='absolute top-0 left-0 w-full h-screen bg-gradient-to-r from-primary-color to-secondary-color opacity-50'></div>
+            <div className='absolute top-0 left-0 w-full h-screen bg-background-color -z-50'></div>
+            <div className='absolute top-0 left-0 w-full h-screen bg-gradient-to-r from-primary-color to-secondary-color opacity-50 -z-[49]'></div>
             <Outlet />
             <nav className='absolute top-0 left-0 flex justify-between items-center w-full h-28 px-10 border-b-2 border-primary-color backdrop-blur-sm' style={{ background: backdrop }}>
                 <a href='/'><img src={asl} alt='asl' className='w-[175px] h-[80]' /></a>
