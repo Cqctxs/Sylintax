@@ -9,6 +9,7 @@ import { Button } from "./ui/button";
 
 function Lesson() {
   const REQUEST_URL = "/api/lesson";
+  const [end, setEnd] = useState(false);
   const id = useParams().id;
   const { auth } = useAuth();
   const [lesson, setLesson] = useState([]);
@@ -62,6 +63,10 @@ function Lesson() {
     setIndex(index - 1);
   };
 
+  const endLesson = () => {
+    setEnd(true);
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -86,7 +91,7 @@ function Lesson() {
   return (
     <div className="text-text-color w-screen h-screen items-center flex flex-col justify-center">
       {/* match your hand with the image to get the correct letter, learning */}
-      {lesson[index]?.type === 1 && (
+      {lesson[index]?.type === 1 && !end && (
         <div className="w-3/4 h-3/4 mt-24">
           <div className="ml-10 mt-10">
             <h3 className="text-xl font-ShinGoPro">
@@ -141,7 +146,7 @@ function Lesson() {
         </div>
       )}
       {/* recognize and enter the correct letter from the image */}
-      {lesson[index]?.type === 2 && (
+      {lesson[index]?.type === 2 && !end && (
         <div className="w-3/4 h-3/4 mt-24">
           <div className="ml-10 mt-10">
             <h1 className="text-4xl font-ShinGoPro ">
@@ -179,7 +184,7 @@ function Lesson() {
         </div>
       )}
       {/* match hand to letter, testing only */}
-      {lesson[index]?.type === 3 && (
+      {lesson[index]?.type === 3 && !end && (
         <div className="w-3/4 h-3/4 mt-24">
           <div className="ml-10 mt-10">
             <h3 className="text-xl font-ShinGoPro">
@@ -222,6 +227,20 @@ function Lesson() {
           </div>
         </div>
       )}
+      {end === true && (
+        <div className="w-3/4 h-3/4 mt-24">
+          <div className="ml-10 mt-10">
+            <h3 className="text-xl font-ShinGoPro">
+              <Flame className="w-5 h-5 inline-block mr-2 -translate-y-[2px]" />
+              Challenge!
+            </h3>
+            <h1 className="text-4xl font-ShinGoPro ">
+              Sign the letter "{lesson[index]?.letter}"
+            </h1>
+          </div>
+        </div>
+      )}
+
       <div className="flex justify-center w-1/6 z-30 -translate-y-5">
         {index > 0 && (
           <Button
@@ -238,6 +257,14 @@ function Lesson() {
           <Button
             className="bg-transparent transition -translate-y-1 duration-500 hover:bg-transparent hover:-translate-y-2"
             onClick={incrementIndex}
+          >
+            <MoveRight className="text-primary-color text-right" />
+          </Button>
+        )}
+        {index === lesson.length - 1 && (
+          <Button
+            className="bg-transparent transition -translate-y-1 duration-500 hover:bg-transparent hover:-translate-y-2"
+            onClick={endLesson}
           >
             <MoveRight className="text-primary-color text-right" />
           </Button>
