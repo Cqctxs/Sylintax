@@ -4,8 +4,8 @@ import pickle
 import numpy as np
 from google.protobuf.json_format import MessageToDict 
 
-model_dict_R = pickle.load(open('./python/model_R.p', 'rb'))
-model_dict_L = pickle.load(open('./python/model_L.p', 'rb'))
+model_dict_R = pickle.load(open('model_R.p', 'rb'))
+model_dict_L = pickle.load(open('model_L.p', 'rb'))
 model_R = model_dict_R['model']
 model_L = model_dict_L['model']
 
