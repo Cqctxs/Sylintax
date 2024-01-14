@@ -15,7 +15,7 @@ const createNewLesson = async (req, res) => {
 }
 
 const getLessonById = async (req, res) => {
-    const { id } = req.body;
+    const id = req.params.id;
     if (!id) return res.status(400).json({ 'message': 'id is required' });
     try {
         const foundLesson = await Lesson.findOne({_id: id}).exec();

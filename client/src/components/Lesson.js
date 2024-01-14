@@ -14,14 +14,10 @@ function Lesson() {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log(JSON.stringify({id : id}));
+      console.log(JSON.stringify({ id: id }));
       try {
         const response = await axios.get(
-          REQUEST_URL,
-          JSON.stringify({id : id}),
-          {
-            headers: { "Content-Type": "application/json" }
-          }
+          `${REQUEST_URL}?id=${id}`
         );
         setLesson(response?.data?.lesson);
       } catch (err) {
@@ -39,24 +35,38 @@ function Lesson() {
     fetchData();
   }, []);
 
-  const fetchData = async () => {
-    try {
-      setLoading(true);
-      const message = await generate('A');
-      setResult(message);
-      setLoading(false);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const fetchData = async () => {
+  //   try {
+  //     setLoading(true);
+  //     const message = await generate('A');
+  //     setResult(message);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   return (
     <div className="text-text-color">
+      <br />
+
+      <br />
+
+      <br />
+
+      <br />
+
+      <br />
+
+      <br />
+
+      <br />
+
       {auth?.user} {JSON.stringify(auth.completed)}
-      <br/>
+      <br />
       {loading ? 'Analyzing...' : `Result: ${result}`}
-      <br/>
-      <button onClick={fetchData}>Fetch Data</button>
+      <br />
+      {/* <button onClick={fetchData}>Fetch Data</button> */}
       {JSON.stringify(lesson)}
       {errMsg}
     </div>
