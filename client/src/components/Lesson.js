@@ -101,7 +101,7 @@ function Lesson({number}) {
   const updateUser = async () => {
     console.log(JSON.stringify({completed: [...auth?.completed, 10]}));
     try {
-      const response = await axios.put(`api/user/${id}`,
+      const response = await axios.put(`api/user/${auth?.user}`,
       JSON.stringify({completed: [...auth?.completed, 10]}),
       {
         headers: { "Content-Type": "application/json" },
