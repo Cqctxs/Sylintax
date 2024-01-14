@@ -10,6 +10,7 @@ import Missing from "./components/Missing";
 import PersistLogin from "./components/PersistLogin";
 import { Routes, Route } from "react-router-dom";
 import Lesson from "./components/Lesson";
+import Lessons from "./components/Lessons";
 
 const ROLES = {
   User: 2001,
@@ -28,6 +29,9 @@ function App() {
           <Route path="unauthorized" element={<Unauthorized />} />
 
           <Route element={<PersistLogin />}>
+            <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.Editor, ROLES.User]} />}>
+              <Route path="lessons" element={<Lessons />} />
+            </Route>
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.Editor, ROLES.User]} />}>
               <Route path="lesson" element={<Lesson />} />
             </Route>
