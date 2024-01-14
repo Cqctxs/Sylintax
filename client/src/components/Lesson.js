@@ -26,8 +26,6 @@ function Lesson({number}) {
   const [imgSrc, setImgSrc] = useState(null);
   const [latest, setLatest] = useState(0);
 
-  const printstuff(() => ())
-
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
     
@@ -48,7 +46,6 @@ function Lesson({number}) {
       })
       .then((response) => {
         if (lesson[index]?.letter === response.data) setCorrect(true);
-        printstuff()
       })
       .catch((error) => console.error("Error uploading file", error));
   }, [webcamRef]);
@@ -75,6 +72,10 @@ function Lesson({number}) {
     updateUser();
     setEnd(true);
   }
+
+  useEffect(() => {
+    
+  }, [correct]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -268,7 +269,7 @@ function Lesson({number}) {
       )}
 
       <div className="flex justify-center w-1/6 z-30 -translate-y-5">
-        {index > 0 && (
+        {index > 0 && !end && (
           <Button
             className="bg-transparent transition -translate-y-1 duration-500 hover:bg-transparent hover:-translate-y-2"
             onClick={decrementIndex}
@@ -279,7 +280,7 @@ function Lesson({number}) {
         <h3 className="text-xl font-ShinGoPro text-center">
           {index + 1}/{lesson.length}
         </h3>
-        {index < lesson.length - 1 && correct && (
+        {index < lesson.length - 1 && correct && !end && (
           <Button
             className="bg-transparent transition -translate-y-1 duration-500 hover:bg-transparent hover:-translate-y-2"
             onClick={incrementIndex}
