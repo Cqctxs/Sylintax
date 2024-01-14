@@ -9,7 +9,7 @@ const Layout = () => {
             <div className='absolute top-0 left-0 w-full h-screen bg-background-color -z-50'></div>
             <div className='absolute top-0 left-0 w-full h-screen bg-gradient-to-r from-primary-color to-secondary-color opacity-50 -z-[49]'></div>
             <Outlet />
-            <nav className='absolute top-0 left-0 flex justify-between items-center w-full h-28 px-10 border-b-2 border-primary-color backdrop-blur-sm' style={{ background: backdrop }}>
+            <nav className='fixed top-0 left-0 flex justify-between items-center w-full h-28 px-10 border-b-2 border-primary-color backdrop-blur-sm' style={{ background: backdrop }}>
                 <a href='/'><img src={asl} alt='asl' className='w-[175px] h-[80]' /></a>
                 <div className='flex justify-between items-center w-1/6'>
                     <a href='/lessons' className='font-ShinGoPro text-primary-color text-2xl mr-5 '>Lessons</a>
