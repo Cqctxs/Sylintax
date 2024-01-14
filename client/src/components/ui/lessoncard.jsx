@@ -10,15 +10,15 @@ import {
 
 const LessonCard = ({ title }) => {
     return (
-        <Card>
+        <Card className='p-10 w-1/3'>
             <CardTitle>{title}</CardTitle>
             <CardDescription>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </CardDescription>
             <CardFooter className='flex justify-center items-center'>
-                <div>
-                    <div className='bg-black w-10 h-10'>a</div>
-                    <div className=' bg-black w-10 h-10'>b</div>
+                <div className='relative w-full pt-5'>
+                    <div className='rounded-full absolute left-0 bg-black w-full h-10'></div>
+                    <div className='rounded-full absolute left-0 bg-green-500 w-10 h-10'></div>
                 </div>
             </CardFooter>
         </Card>
