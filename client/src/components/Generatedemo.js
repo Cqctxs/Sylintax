@@ -4,7 +4,7 @@ import generate from 'src/api/cohere';
 function Generatedemo() {
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState("");
-    const generateResponse = async (letter) => {
+    const fetchData = async (letter) => {
         try {
           setLoading(true);
           const message = await generate(letter);
@@ -15,10 +15,9 @@ function Generatedemo() {
         }
       };
   return (
-    <div className="text-text-color">
-      {loading ? (<p>Analyzing...</p>) : (
-        <p>{result}</p>
-      )}
+    <div className="text-text-color mt-36">
+        {loading ? "Analyzing..." : `Result: ${result}`}
+        <button onClick={fetchData} className="mt-10">Fetch Data</button>
     </div>
   )
 }
