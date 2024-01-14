@@ -42,7 +42,11 @@ function Lesson() {
           "Content-Type": "multipart/form-data",
         },
       })
-      .then((response) => console.log(response.data))
+      .then((response) => 
+      {
+        if (lesson[index]?.letter == response.data) setCorrect(true);
+        else return setCorrect(false);
+      })
       .catch((error) => console.error("Error uploading file", error));
   }, [webcamRef]);
 
