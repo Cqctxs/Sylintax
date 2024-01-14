@@ -53,6 +53,7 @@ function Lesson() {
       console.log(response.data);
       console.log(lesson[index].letter == response.data);
       setCorrect(lesson[index].letter == response.data);
+      setIncorrect(lesson[index].letter != response.data);
     } catch (error) {
       console.error("Error uploading file", error)
     }
