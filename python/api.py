@@ -16,10 +16,11 @@ def verify():
         return jsonify({'error': 'No file provided'}), 400
     
     file = request.form.to_dict()['file']
-    
-    f = open("test.txt", 'w')
-    f.write(file)
-    f.close()
+    toDecode = file.tobytes()
+    decoded = base64.b64decode(toDecode)
+
+    with open("imageToSave.png", "wb") as fh:
+        fh.write(base64.decodebytes(decoded))
     
     # file = base64.b64decode(file);
     
