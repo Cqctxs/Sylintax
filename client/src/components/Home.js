@@ -1,12 +1,12 @@
 import React from 'react'
+import Matrix from './ui/matrix';
 
 
 function Home() {
 
   return (
-    <div className='h-screen flex flex-col justify-center items-center'>
-      
-      
+    <div className='h-screen w-screen flex flex-col justify-center items-center'>
+      <Matrix/>
       <div className='absolute bottom-0 left-0 flex justify-start flex-wrap w-1/2 p-10'>
         <p className='font-Poppins text-primary-color text-2xl'>
           <div className='inline-flex mr-5'>
