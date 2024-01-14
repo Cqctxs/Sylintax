@@ -13,7 +13,7 @@ const Layout = () => {
                 <a href='/'><img src={asl} alt='asl' className='w-[175px] h-[80]' /></a>
                 <div className='flex justify-between items-center w-1/6'>
                     <a href='/lessons' className='font-ShinGoPro text-primary-color text-2xl mr-5 '>Lessons</a>
-                    <a href='/login' className='font-ShinGoPro text-primary-color text-2xl mr-5'><CircleUserRound className='w-6 h-6' /></a>
+                    <a href='/account' className='font-ShinGoPro text-primary-color text-2xl mr-5'><CircleUserRound className='w-6 h-6' /></a>
                 </div>
             </nav>
         </main>

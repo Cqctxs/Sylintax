@@ -31,23 +31,10 @@ function Account() {
   }, []);
 
   return (
-    <div>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      
-      {profile?.user}
-      <br />
-      {profile?.completed}
+    <div className='w-screen h-screen flex items-center flex-col justify-center'>
+        {profile?.user}
+        <br />
+        {profile?.completed}
     </div>
   )
 }
