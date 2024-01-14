@@ -4,7 +4,7 @@ import generate from "../api/cohere";
 import axios from "../api/axios";
 import Webcam from "react-webcam";
 import { useParams } from "react-router-dom";
-import { Sparkles, MoveLeft, MoveRight } from "lucide-react";
+import { Sparkles, Flame, MoveLeft, MoveRight } from "lucide-react";
 import { Button } from "./ui/button";
 
 function Lesson() {
@@ -113,8 +113,8 @@ function Lesson() {
               alt={"letter " + lesson[index]?.letter} style={{ transform: 'scaleX(-1)' }}
             />
             <div className="w-1/6 relative inline-flex items-center justify-center">
-              <input className="h-14 pl-4 mt-10 resize-none border-2 border-text-color rounded-lg shadow-sm font-ShinGoPro bg-background-color" placeholder="Type in a letter:" maxLength={1}/>
-              <Button className="absolute hover:bg-secondary-color top-12 bg-primary-color text-white rounded-lg shadow-sm font-ShinGoPro bottom-2 right-1"><MoveRight/></Button>
+              <input className="h-14 pl-4 mt-10 resize-none border-2 border-text-color rounded-lg shadow-sm font-ShinGoPro bg-background-color" placeholder="Type in a letter:" maxLength={1} />
+              <Button className="absolute hover:bg-secondary-color top-12 bg-primary-color text-white rounded-lg shadow-sm font-ShinGoPro bottom-2 right-1"><MoveRight /></Button>
             </div>
           </div>
         </div>
@@ -123,7 +123,29 @@ function Lesson() {
       {
         lesson[index]?.type === 3 &&
         <div className="w-3/4 h-3/4 mt-24">
-
+          <div className="ml-10 mt-10">
+            <h3 className="text-xl font-ShinGoPro">
+              <Flame className="w-5 h-5 inline-block mr-2 -translate-y-[2px]" />
+              Challenge!
+            </h3>
+            <h1 className="text-4xl font-ShinGoPro ">
+              Sign the letter "{lesson[index]?.letter}"
+            </h1>
+          </div>
+          <div className="w-full h-full relative flex flex-row-reverse justify-center items-center -translate-y-20">
+            {imgSrc ? (
+              <img className="absolute border-2 border-text-color rounded-lg shadow-sm" src={imgSrc} alt="webcam" width={600} height={600} />
+            ) : (
+              <Webcam className='absolute border-2 border-text-color rounded-lg shadow-sm' height={600} width={600} ref={webcamRef} mirrored={true} />
+            )}
+            <div>
+              {imgSrc ? (
+                <button className="mt-[31rem]" onClick={retake}>Retake photo</button>
+              ) : (
+                <button className="mt-[31rem]" onClick={capture}>Capture photo</button>
+              )}
+            </div>
+          </div>
         </div>
       }
       <div className="flex justify-center w-1/6 z-30 -translate-y-5">
