@@ -7,11 +7,11 @@ import { useParams } from "react-router-dom";
 import { Sparkles, Flame, MoveLeft, MoveRight } from "lucide-react";
 import { Button } from "./ui/button";
 
-function Lesson() {
+function Lesson({number}) {
   const REQUEST_URL = "/api/lesson";
   const [end, setEnd] = useState(false);
   const id = useParams().id;
-  const { auth } = useAuth();
+  const { auth, setAuth } = useAuth();
   const [lesson, setLesson] = useState([]);
   const [errMsg, setErrMsg] = useState("");
   const [result, setResult] = useState("");
@@ -72,6 +72,7 @@ function Lesson() {
   };
 
   const endLesson = () => {
+    updateUser();
     setEnd(true);
   }
 
@@ -95,6 +96,23 @@ function Lesson() {
 
     fetchData();
   }, []);
+
+  const updateUser = async () => {
+    try {
+      const response = await axios.put(`${REQUEST_URL}/${id}`,
+      JSON.stringify({completed: [...auth?.completed, number]}),
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      });
+      const user = auth?.username;
+      const newCompleted = response.completed;
+      const access = auth?.accessToken
+      setAuth({user, newCompleted, access});
+    } catch (err) {
+
+    }
+  }
 
   return (
     <div className="text-text-color w-screen h-screen items-center flex flex-col justify-center">
