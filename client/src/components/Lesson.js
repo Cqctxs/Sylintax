@@ -34,9 +34,19 @@ function Lesson() {
     fetchData();
   }, []);
 
+  const generateResponse = async (letter) => {
+    try {
+      setLoading(true);
+      const message = await generate(letter);
+      setResult(message);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="text-text-color">
-      {/* ... */}
       {lesson && lesson.length > 0 && (
         <ul>
           {lesson.map((data) => (
@@ -44,7 +54,6 @@ function Lesson() {
           ))}
         </ul>
       )}
-      {/* ... */}
     </div>
   );
 }
