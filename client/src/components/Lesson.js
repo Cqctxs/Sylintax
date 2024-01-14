@@ -45,10 +45,17 @@ function Lesson({number}) {
         },
       })
       .then((response) => {
-        if (lesson[index]?.letter === response.data) setCorrect(true);
+        if (lesson[index]?.letter[0] === response.data[0]) setCorrect((prevCorrect) => !prevCorrect);
+        else setCorrect(false);
+        console.log(lesson[index]?.letter[0])
+        console.log(response.data[0]);
+        console.log(typeof(lesson[index]?.letter));
+        console.log(typeof(response.data));
+        console.log(correct)
+        console.log(latest)
       })
       .catch((error) => console.error("Error uploading file", error));
-  }, [webcamRef]);
+  }, [webcamRef, index]);
 
   const retake = () => {
     setImgSrc(null);
@@ -74,8 +81,8 @@ function Lesson({number}) {
   }
 
   useEffect(() => {
-    
-  }, [correct]);
+    if (index > latest) setCorrect(false);
+  }, [index, latest]);
 
   useEffect(() => {
     const fetchData = async () => {
