@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import { Sparkles, Flame, MoveLeft, MoveRight } from "lucide-react";
 import { Button } from "./ui/button";
 
-function Lesson({number}) {
+function Lesson() {
   const REQUEST_URL = "/api/lesson";
   const [end, setEnd] = useState(false);
   const id = useParams().id;
@@ -16,7 +16,7 @@ function Lesson({number}) {
   const [errMsg, setErrMsg] = useState("");
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(2);
   const [current, setCurrent] = useState({});
   const [letter, setLetter] = useState("");
   const [correct, setCorrect] = useState(false);
@@ -105,10 +105,10 @@ function Lesson({number}) {
   }, []);
 
   const updateUser = async () => {
-    console.log(JSON.stringify({completed: [...auth?.completed, 10]}));
+    console.log(JSON.stringify({completed: [...auth?.completed, id]}));
     try {
-      const response = await axios.put(`api/user/${id}`,
-      JSON.stringify({completed: [...auth?.completed, 10]}),
+      const response = await axios.put(`api/user/${auth?.user}`,
+      JSON.stringify({completed: [...auth?.completed, id]}),
       {
         headers: { "Content-Type": "application/json" },
         withCredentials: true
