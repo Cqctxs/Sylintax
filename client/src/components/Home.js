@@ -5,7 +5,6 @@ function Home() {
 
   return (
     <div className='h-screen flex flex-col justify-center items-center'>
-      {/*<image src={background} alt='background' className='absolute top-0 left-0 w-full h-screen object-cover' />*/}
       
       
       <div className='absolute bottom-0 left-0 flex justify-start flex-wrap w-1/2 p-10'>

@@ -49,6 +49,9 @@ function Lesson() {
           </h3>
           <h1 className="text-4xl font-ShinGoPro ">This is the letter "{lesson[index]?.letter}"
           </h1>
+          <div className="w-full h-full flex justify-center items-center">
+            <img src={require(`../images/${lesson[index]?.letter}.png`)} alt={"letter " + lesson[index]?.letter} />
+          </div>
         </div>
       }
       {/* recognize and enter the correct letter from the image */}

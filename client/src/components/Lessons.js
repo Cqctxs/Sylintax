@@ -1,6 +1,5 @@
 import React from 'react'
 import LessonCard from './ui/lessoncard'
-import Lesson from './Lesson'
 
 function Lessons() {
   return (
