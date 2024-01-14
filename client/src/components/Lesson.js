@@ -238,6 +238,18 @@ function Lesson() {
             <MoveRight className="text-primary-color text-right" />
           </Button>
         )}
+        {index === lesson.length - 1 && (
+          <Button
+            className="bg-transparent transition -translate-y-1 duration-500 hover:bg-transparent hover:-translate-y-2"
+            onClick={() => {
+              setIndex(0);
+              setImgSrc(null);
+              
+            }}
+          >
+            <MoveRight className="text-primary-color text-right" />
+          </Button>
+        )}
       </div>
     </div>
   );
