@@ -6,10 +6,10 @@ function Lessons() {
   const { auth } = useAuth();
   const completed = auth?.completed;
   const getStatus = (id, prev) => {
-    if (completed.includes(id)) {
+    if (completed && completed.includes(id)) {
       return "completed";
     }
-    if (completed.includes(prev) || id === "65a34ba1f122554807584d58") {
+    if (completed && completed.includes(prev) || id === "65a34ba1f122554807584d58") {
       return "unlocked"
     }
     return "locked";

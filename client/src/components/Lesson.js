@@ -65,7 +65,7 @@ function Lesson() {
         }
       );
       setOpened(true);
-      console.log(lesson[index].letter);
+      console.log(lesson[index]?.letter);
       console.log(response.data);
       console.log(lesson[index]?.letter == response.data);
       setCorrect((lesson[index]?.letter == response.data || lesson[index]?.letter == null));
@@ -340,11 +340,11 @@ function Lesson() {
             </h1>
           </div>
           <img src={unlock} alt="unlock" className=" w-96 h-96 m-16" />
-          <Link to="/lessons">
+          <a href="/lessons">
             <Button className="text-3xl p-10 font-ShinGoPro bg-secondary-color transition duration-500 hover:bg-primary-color hover:-translate-y-2">
               Lets Go!
             </Button>
-          </Link>
+          </a>
         </div>
       )}
       {correct === true && opened && (
