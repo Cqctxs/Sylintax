@@ -12,12 +12,13 @@ function Lesson() {
   const [errMsg, setErrMsg] = useState("");
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
+  const [index, setIndex] = useState(1);
+  const [current, setCurrent] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`${REQUEST_URL}/${id}`);
-        console.log(response);
         setLesson(response?.data);
       } catch (err) {
         if (!err?.response) {
@@ -35,26 +36,14 @@ function Lesson() {
     fetchData();
   }, []);
 
-  const generateResponse = async (letter) => {
-    try {
-      setLoading(true);
-      const message = await generate(letter);
-      setResult(message);
-      setLoading(false);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
-    <div className="text-text-color">
-      {lesson && lesson.length > 0 && (
-        <ul>
-          {lesson.map((data) => (
-            <li key={data.id}>{JSON.stringify(data)}</li>
-          ))}
-        </ul>
-      )}
+    <div className="text-text-color w-screen h-screen items-center flex justify-center">
+      {/* match your hand with the image to get the correct letter, learning */}
+      {lesson[index]?.type === 1 && <div>1</div>}
+      {/* recognize and enter the correct letter from the image */}
+      {lesson[index]?.type === 2 && <div>2</div>}
+      {/* match hand to letter, testing only */}
+      {lesson[index]?.type === 3 && <div>3</div>}
     </div>
   );
 }
