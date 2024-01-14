@@ -12,6 +12,8 @@ import { Routes, Route } from "react-router-dom";
 import Lesson from "./components/Lesson";
 import Lessons from "./components/Lessons";
 import Account from "./components/Account";
+import Photocam from "./components/Photocam";
+
 
 const ROLES = {
   User: 2001,
@@ -46,6 +48,7 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="unauthorized" element={<Unauthorized />} />
+        <Route path="camera" element={<Photocam />} />
       </Routes>
     </div>
   );
