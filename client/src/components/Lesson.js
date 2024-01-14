@@ -14,10 +14,10 @@ function Lesson() {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log(JSON.stringify({ id: id }));
       try {
         const response = await axios.get(`${REQUEST_URL}/${id}`);
-        setLesson(response?.data?.lesson);
+        console.log(response);
+        setLesson(response?.data);
       } catch (err) {
         if (!err?.response) {
           setErrMsg("No Server Response");
@@ -30,43 +30,21 @@ function Lesson() {
         }
       }
     };
+
     fetchData();
   }, []);
 
-  console.log(lesson);
-
-  const fetchData = async () => {
-    try {
-      setLoading(true);
-      const message = await generate("A");
-      setResult(message);
-      setLoading(false);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
     <div className="text-text-color">
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      {auth?.user} {JSON.stringify(auth.completed)}
-      <br />
-      {loading ? "Analyzing..." : `Result: ${result}`}
-      <br />
-      <button onClick={fetchData}>Fetch Data</button>
-      {lesson && <ul>
-        {lesson.map((data) => (
-          <li>{JSON.stringify(data)}</li>
-        ))}
-      </ul>
-      }
-      {errMsg}
+      {/* ... */}
+      {lesson && lesson.length > 0 && (
+        <ul>
+          {lesson.map((data) => (
+            <li key={data.id}>{JSON.stringify(data)}</li>
+          ))}
+        </ul>
+      )}
+      {/* ... */}
     </div>
   );
 }
