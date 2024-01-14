@@ -47,11 +47,6 @@ function Lesson({number}) {
       .then((response) => {
         if (lesson[index]?.letter[0] === response.data[0]) setCorrect((prevCorrect) => !prevCorrect);
         else setCorrect(false);
-        console.log(lesson[index]?.letter[0])
-        console.log(response.data[0]);
-        console.log(typeof(lesson[index]?.letter));
-        console.log(typeof(response.data));
-        console.log(correct)
         console.log(latest)
       })
       .catch((error) => console.error("Error uploading file", error));
@@ -81,8 +76,12 @@ function Lesson({number}) {
   }
 
   useEffect(() => {
-    if (index > latest) setCorrect(false);
-  }, [index, latest]);
+    console.log(index);
+  }, [index]);
+
+  useEffect(() => {
+    console.log(correct);
+  }, [correct]);
 
   useEffect(() => {
     const fetchData = async () => {
