@@ -14,4 +14,16 @@ const createNewLesson = async (req, res) => {
     }
 }
 
-module.exports = { createNewLesson };
+const getLessonById = async (req, res) => {
+    const { id } = req.body;
+    if (!id) return res.status(400).json({ 'message': 'id is required' });
+    try {
+        const foundLesson = await Lesson.findOne({_id: id}).exec();
+        if (!foundLesson) res.status(404);
+        res.json(foundLesson.lesson);
+    } catch (err) {
+        res.status(500).json({ 'message': err.message });
+    }
+}
+
+module.exports = { createNewLesson, getLessonById };
