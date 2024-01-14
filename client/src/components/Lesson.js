@@ -120,7 +120,7 @@ function Lesson() {
         completed: newCompleted
       });
     } catch (err) {
-
+      console.log(err);
     }
   }
 
