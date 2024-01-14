@@ -14,6 +14,7 @@ function Lesson() {
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log(JSON.stringify({id : id}));
       try {
         const response = await axios.get(
           REQUEST_URL,
