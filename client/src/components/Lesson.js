@@ -24,6 +24,13 @@ function Lesson({number}) {
 
   const webcamRef = useRef(null);
   const [imgSrc, setImgSrc] = useState(null);
+  const [latest, setLatest] = useState(0);
+
+  const printstuff = (() => {
+    console.log(data);
+    console.log(correct);
+    console.log(latest);
+  })
 
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
@@ -43,10 +50,13 @@ function Lesson({number}) {
           "Content-Type": "multipart/form-data",
         },
       })
-      .then((response) => 
-      {
-        if (lesson[index]?.letter == response.data) setCorrect(true);
-        else return setCorrect(false);
+      .then((response) => {
+        data = response.data
+        if (lesson[index]?.letter == response.data) {
+          setCorrect(true);
+          printstuff();
+        }
+        printstuff();
       })
       .catch((error) => console.error("Error uploading file", error));
   }, [webcamRef]);
@@ -56,11 +66,17 @@ function Lesson({number}) {
   };
 
   const incrementIndex = () => {
-    setIndex(index + 1);
+    setIndex((prevIndex) => prevIndex+1);
+    if (index > latest) setCorrect(false);
+    retake();
+    setLatest((prevLatest) => Math.max(prevLatest, index))
   };
 
   const decrementIndex = () => {
-    setIndex(index - 1);
+    setIndex((prevIndex) => prevIndex-1);
+    if (index > latest) setCorrect(false);
+    retake();
+    setLatest((prevLatest) => Math.max(prevLatest, index))
   };
 
   const endLesson = async () => {
@@ -274,7 +290,7 @@ function Lesson({number}) {
         <h3 className="text-xl font-ShinGoPro text-center">
           {index + 1}/{lesson.length}
         </h3>
-        {index < lesson.length - 1 && (
+        {index < lesson.length - 1 && correct && (
           <Button
             className="bg-transparent transition -translate-y-1 duration-500 hover:bg-transparent hover:-translate-y-2"
             onClick={incrementIndex}
